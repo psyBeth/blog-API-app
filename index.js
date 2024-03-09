@@ -3,12 +3,13 @@
 const express = require('express')
 const app = express()
 
-require('./src/dbConnection')
 app.use(express.json());
 
 require('dotenv').config()
 const PORT = process.env.PORT
 const HOST = process.env.HOST
+
+require('./src/dbConnection')
 
 app.all('/', (req, res) => {
     res.send('wellcome to my blog api')
