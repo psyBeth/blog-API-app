@@ -3,6 +3,7 @@
 const express = require('express')
 const app = express()
 
+require('./src/dbConnection')
 app.use(express.json());
 
 require('dotenv').config()
