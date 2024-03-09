@@ -25,25 +25,28 @@ module.exports.blogPost = {
         })
     },
     read: async(req, res) => {
-        const data = await blogPost.find()
-        res.status(200).send({
+        const data = await blogPost.find({_id: req.params.postId})
+        res.status(202).send({
             error: false,
             data: data,
         })
     },
     update: async(req, res) => {
-        const data = await blogPost.find()
-        res.status(200).send({
+        const data = await blogPost.updateOne({_id: req.params.postId}, req.body)
+        const newdata = await blogPost.updateOne({_id: req.params.postId}, req.body)
+        res.status(203).send({
             error: false,
-            data: data,
-        })
-    },
-    delete: async(req, res) => {
-        const data = await blogPost.find()
-        res.status(200).send({
-            error: false,
-            data: data,
-        })
-    },
+            body: req.body,
+            data: data, //info about update
+            //? to get the updated data, call it again
+            newdata: newdata,
 
+        })
+    },
+    delete: async(req,res)=>{
+        const data=await blogPost.deleteOne({_id:req.params.postId})
+        // console.log(data);
+        res.sendStatus((data.deletedCount>=1)? 204:404)
+        
+    }
 }
