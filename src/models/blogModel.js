@@ -2,7 +2,41 @@
 
 const mongoose = require('mongoose')
 
+const blogPostSchema = new mongoose.Schema(
+    {
+        //_id
+        // categoryId:
+        title: {
+            type: String,
+            trim: true,
+            required: true,
+        },
+        content: {
+            type: String,
+            trim: true,
+            required: true,
+        },
+        // createdAt,
+        // updatedAt
+    },
+    {
+        collection: 'blogPost',
+        timestamps: true,
+    }
+)
+// mongoose.model('model name', 'which schema')
+// const blogPostModel = mongoose.model('blogPost', blogPostSchema)
+// module.exports = {
+//     blogPost: blogPostModel,
+// }
+module.exports = {
+    blogPost: mongoose.model('blogPost', blogPostSchema)
+}
+
+
+
 // const nameSchema = new mongoose.Schema({fields}, {table name})
+/*
 const nameSchema = new mongoose.Schema(
     {
         // _id: //auto created and increment  
@@ -28,3 +62,4 @@ const nameSchema = new mongoose.Schema(
         timestamps: true, // createDate, updateDate
     }
 )
+*/
