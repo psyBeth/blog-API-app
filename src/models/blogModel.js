@@ -19,7 +19,10 @@ const blogCategorySchema = new mongoose.Schema({
 const blogPostSchema = new mongoose.Schema(
     {
         //_id
-        // categoryId:
+        blogCategoryId: {
+            type: mongoose.Schema.Types.ObjectId,   //ForeignKey, RelationalID
+            ref: 'blogCategory'
+        },
         title: {
             type: String,
             trim: true,
