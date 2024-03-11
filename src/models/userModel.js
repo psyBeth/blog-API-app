@@ -12,7 +12,8 @@ const charCount = 32   // always the half of desired char - 32 for 64
 const encType = 'sha512'
 
 const passwordEncrypt = function (password) {
-    const encrypted = crypto.pbkdf2Sync(password, keyCode, loopCount, charCount, encType)
+    return crypto.pbkdf2Sync(password, keyCode, loopCount, charCount, encType).toString('hex')
+   
 }
 
 // SCHEMA
@@ -45,6 +46,7 @@ const UserSchema = new mongoose.Schema({
         // set: () => { return 'nininini'}
         // set: (password) => { return password + 123}
         // set: function (password) => { return password + 123}
+        set: (password) => passwordEncrypt(password)
 
     },
 
