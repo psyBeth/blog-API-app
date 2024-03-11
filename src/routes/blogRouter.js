@@ -2,15 +2,15 @@
 
 const router = require('express').Router()
 
-const {route} = require('express/lib/router')
+// const {route} = require('express/lib/router')
 const {blogPost, blogCategory} = require('../controllers/blogController')
 
 //blogCategory:
-router.route('/posts')
+router.route('/categories')
     .get(blogCategory.list)
     .post(blogCategory.create)
 
-router.route('/posts/:postId')
+router.route('/categories/:categoryId')
     .get(blogCategory.read)
     .put(blogCategory.update)  
     .patch(blogCategory.update)
