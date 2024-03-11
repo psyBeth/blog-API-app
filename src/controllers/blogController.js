@@ -2,22 +2,22 @@
 
 require('express-async-errors')
 
-const {blogPost} = require('../models/blogModel')
+const {blogPost, blogCategory} = require('../models/blogModel')
 
 // module.exports={
 //     'key': 'value',
 // }
 
-module.exports.blogPost = {
+module.exports.blogCategory = {
     list: async(req, res) => {
-        const data = await blogPost.find()
+        const data = await blogCategory.find()
         res.status(200).send({
             error: false,
             data: data,
         })
     },
     create: async(req, res) => {
-        const data = await blogPost.create(req.body)
+        const data = await blogCategory.create(req.body)
         res.status(201).send({
             error: false,
             body: req.body,
@@ -25,15 +25,15 @@ module.exports.blogPost = {
         })
     },
     read: async(req, res) => {
-        const data = await blogPost.find({_id: req.params.postId})
+        const data = await blogCategory.find({_id: req.params.categoryId})
         res.status(202).send({
             error: false,
             data: data,
         })
     },
     update: async(req, res) => {
-        const data = await blogPost.updateOne({_id: req.params.postId}, req.body)
-        const newdata = await blogPost.updateOne({_id: req.params.postId}, req.body)
+        const data = await blogCategory.updateOne({_id: req.params.categoryId}, req.body)
+        const newdata = await blogCategory.updateOne({_id: req.params.categoryId}, req.body)
         res.status(203).send({
             error: false,
             body: req.body,
@@ -44,9 +44,52 @@ module.exports.blogPost = {
         })
     },
     delete: async(req,res)=>{
-        const data=await blogPost.deleteOne({_id:req.params.postId})
+        const data=await blogCategory.deleteOne({_id:req.params.categoryId})
         // console.log(data);
         res.sendStatus((data.deletedCount>=1)? 204:404)
         
+    }
+}
+
+module.exports.blogPost = {
+
+    list: async (req, res) => {
+        const data = await blogPost.find()
+        res.status(200).send({
+            error: false,
+            data: data
+        })
+
+    },
+    create: async (req, res) => {
+        const data = await blogPost.create(req.body)
+        res.status(201).send({
+            error: false,
+            body: req.body,
+            data: data
+        })
+    },
+    read: async (req, res) => {
+        const data = await blogPost.find({ _id: req.params.postId })
+        res.status(202).send({
+            error: false,
+            data: data
+
+        })
+    },
+    update: async (req, res) => {
+        const data = await blogPost.updateOne({ _id: req.params.postId }, req.body)
+        const newdata = await blogPost.find({ _id: req.params.postId })
+        res.status(202).send({
+            error: false,
+            body: req.body,
+            data: data, // info about update
+            newdata: newdata
+        })
+    },
+    delete: async (req, res) => {
+        const data = await blogPost.deleteOne({ _id: req.params.postId })
+        // console.log(data);
+        res.sendStatus((data.deletedCount >= 1) ? 204 : 404)
     }
 }

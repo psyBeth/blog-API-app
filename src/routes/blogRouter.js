@@ -3,8 +3,20 @@
 const router = require('express').Router()
 
 const {route} = require('express/lib/router')
-const {blogPost} = require('../controllers/blogController')
+const {blogPost, blogCategory} = require('../controllers/blogController')
 
+//blogCategory:
+router.route('/posts')
+    .get(blogCategory.list)
+    .post(blogCategory.create)
+
+router.route('/posts/:postId')
+    .get(blogCategory.read)
+    .put(blogCategory.update)  
+    .patch(blogCategory.update)
+    .delete(blogCategory.delete)
+
+//blogPost:
 router.route('/posts')
     .get(blogPost.list)
     .post(blogPost.create)
