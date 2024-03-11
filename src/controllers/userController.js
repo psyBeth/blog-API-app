@@ -30,7 +30,7 @@ module.exports = {
     },
     update: async (req, res) => {
         const data = await User.updateOne({ _id: req.params.userId }, req.body)
-        const newdata = await User.find({ _id: req.params.userId })
+        const newdata = await User.findOne({ _id: req.params.userId })
         res.status(202).send({
             error: false,
             body: req.body,
