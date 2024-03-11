@@ -5,10 +5,10 @@ const router = require("express").Router()
 const User = require("../controllers/userController")
 
 // User:
-router.route('/users')
+router.route('/')
     .get(User.list)
     .post(User.create)
-router.route('/users/:userId')
+router.route('/:userId')
     .get(User.read)
     .put(User.update) 
     .patch(User.update)
