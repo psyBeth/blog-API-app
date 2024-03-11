@@ -1,7 +1,21 @@
 'use strict'
+//BLOG API MODELS 
 
 const mongoose = require('mongoose')
 
+// BLOG CATEGORY
+const blogCategorySchema = new mongoose.Schema({
+    name: {
+        type: String,
+        trim: true,
+        required: true
+    }
+}, {
+        collection: 'blogCategory',
+        timestamps: true
+})
+
+// BLOG POST
 const blogPostSchema = new mongoose.Schema(
     {
         //_id
@@ -30,6 +44,7 @@ const blogPostSchema = new mongoose.Schema(
 //     blogPost: blogPostModel,
 // }
 module.exports = {
+    blogCategory: mongoose.model('blogCategory', blogCategorySchema),
     blogPost: mongoose.model('blogPost', blogPostSchema)
 }
 
