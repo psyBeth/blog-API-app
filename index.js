@@ -11,6 +11,15 @@ const HOST = process.env.HOST
 
 require('./src/configs/dbConnection')
 
+/* ------------------------------------------------------- */
+// SessionCookies:
+// http://expressjs.com/en/resources/middleware/cookie-session.html
+// https://www.npmjs.com/package/cookie-session
+//* $ npm i cookie-session
+
+
+/* ------------------------------------------------------- */
+
 app.all('/', (req, res) => {
     res.send('wellcome to my blog api')
 })
