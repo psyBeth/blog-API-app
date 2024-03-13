@@ -3,7 +3,7 @@
 const User = require("../models/userModel")
 
 module.exports = async (req, res, next) => {
-    if(req?.session) {
+    if(req?.session?.id) {
         const { id, password } = req.session
         const user = await User.findOne({ _id : id})
 
