@@ -24,6 +24,10 @@ app.use(session({
 }));
 /* ------------------------------------------------------- */
 
+app.use(require('./src/middlewares/userControl'))
+
+/* ------------------------------------------------------- */
+
 app.all('/', (req, res) => {
     res.send({
         error: false,
