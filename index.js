@@ -22,6 +22,15 @@ app.use(session({
     secret: process.env.SECRET_KEY,
     // maxAge: 1000 * 60 * 60 * 24 * 3 //millisecond    // will be saved for 3 days
 }));
+/* ------------------------------------------------------- */
+
+app.all('/', (req, res) => {
+    res.send({
+        error: false,
+        message: 'WELLCOME BLOG API PROJECT',
+        loginedUser: req.session,
+    })
+});
 
 /* ------------------------------------------------------- */
 

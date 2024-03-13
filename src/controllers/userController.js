@@ -52,12 +52,30 @@ module.exports = {
 
             const user = await User.findOne({ email: email })
             if(user && user.password == passwordEncrypt(password)) {
+
+                //* SESSIONS
+                // req.session ={
+                //     email: user.email,
+                //     password: user.password
+                // },
+                req.session.email = user.email
+                req.session.password = user.password
+                //* SESSIONS
+
+                //* COOKIES
+                if(req.body?.remindMe) {
+                    req.session.remindMe = req.body.remindMe
+                    // SET maxAge
+                    req.sessionOptions.maxAge = 1000 * 60 * 60 * 24 * 3  // 3 days 
+                }
+                //* COOKIES
+
                 res.status(200).send({
                     error: false,
                     message: 'login ok',
                     user
                 })
-            } else{
+            } else {
             res.errorStatusCode = 401
             throw new Error('Login parameters are not true.')
             }
@@ -67,6 +85,7 @@ module.exports = {
             throw new Error('Email and password are required.')
         }
     },
+
     logout: async (req, res) => {
 
     },
