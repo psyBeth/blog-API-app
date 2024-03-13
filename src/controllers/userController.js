@@ -42,5 +42,13 @@ module.exports = {
         const data = await User.deleteOne({ _id: req.params.userId })
         // console.log(data);
         res.sendStatus((data.deletedCount >= 1) ? 204 : 404)
-    }
+    },
+
+    //? Login / Logout:
+    login: async (req, res) => {
+        
+    },
+    logout: async (req, res) => {
+
+    },
 }
