@@ -29,7 +29,7 @@ app.use(require('./src/middlewares/userControl'))
 /* ------------------------------------------------------- */
 
 app.all('/', (req, res) => {
-    if (condition) {
+    if (req.isLogin) {
         res.send({
             error: false,
             message: 'WELLCOME BLOG API PROJECT',
