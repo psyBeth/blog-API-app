@@ -3,6 +3,7 @@
 require("express-async-errors")
 
 const User = require("../models/userModel")
+const passwordEncrypt = require('../helpers/passwordEncrypt')
 
 module.exports = {
 
@@ -46,7 +47,25 @@ module.exports = {
 
     //? Login / Logout:
     login: async (req, res) => {
-        
+        const { email, password } = req.body
+        if(email && password){
+
+            const user = await User.findOne({ email: email })
+            if(user && user.password == passwordEncrypt(password)) {
+                res.status(200).send({
+                    error: false,
+                    message: 'login ok',
+                    user
+                })
+            } else{
+            res.errorStatusCode = 401
+            throw new Error('Login parameters are not true.')
+            }
+
+        } else {
+            res.errorStatusCode = 401
+            throw new Error('Email and password are required.')
+        }
     },
     logout: async (req, res) => {
 
