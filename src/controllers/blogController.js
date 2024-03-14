@@ -69,20 +69,23 @@ module.exports.blogPost = {
         // console.log(search);
         // { title: 'test', content: 'test' } -> { title: { $regex: 'test' }, content: { $regex: 'test' } }
         for (let key in search) {
-            search[key] = { $regex: search[key], $options: 'i' }  //insentive
+            search[key] = { $regex: search[key], $options: 'i' }  //insensitive
         }
 
-        //* SORTING
+        //* SORTING:
         // URL?sort[key1]=asc&sort[key2]=desc
         // asc: A-Z - desc: Z-A
         const sort = req.query?.sort || {}
         // console.log(sort);
 
+        //* PAGINATION:
+
+
         //? FILTERING & SEARCHING & SORTING & PAGINATION */
 
         // const data = await blogPost.find({ published: true })
         // const data = await blogPost.find(filter)
-        const data = await blogPost.find(...filter, ...search).sort(sort)
+        const data = await blogPost.find({...filter, ...search}).sort(sort)
 
         res.status(200).send({
             error: false,
