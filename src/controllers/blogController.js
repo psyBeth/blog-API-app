@@ -57,11 +57,16 @@ module.exports.blogPost = {
 
         //* FILTERING & SEARCHING & SORTING & PAGINATION */
 
-        console.log(req.query);
+        //? FILTERING:
+        // URL?filter[key1]=value1&filter[key2]=value2
+        const filter = req.query?.filter || {}
+        console.log(filter);
 
         //* FILTERING & SEARCHING & SORTING & PAGINATION */
 
-        const data = await blogPost.find()
+        // const data = await blogPost.find({ published: true })
+        const data = await blogPost.find(filter)
+
         res.status(200).send({
             error: false,
             data: data
