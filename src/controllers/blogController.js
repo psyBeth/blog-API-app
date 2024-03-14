@@ -54,6 +54,13 @@ module.exports.blogCategory = {
 module.exports.blogPost = {
 
     list: async (req, res) => {
+
+        //* FILTERING & SEARCHING & SORTING & PAGINATION */
+
+        console.log(req.query);
+
+        //* FILTERING & SEARCHING & SORTING & PAGINATION */
+
         const data = await blogPost.find()
         res.status(200).send({
             error: false,
