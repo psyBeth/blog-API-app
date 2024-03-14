@@ -79,13 +79,17 @@ module.exports.blogPost = {
         // console.log(sort);
 
         //* PAGINATION:
-
+        // URL?page=3&limit=10
+        let limit = Number(req.query?.limit);
+        limit = limit > 0 ? limit : Number(process.env.PAGE_SIZE)
+        console.log(limit);
+       
 
         //? FILTERING & SEARCHING & SORTING & PAGINATION */
 
         // const data = await blogPost.find({ published: true })
         // const data = await blogPost.find(filter)
-        const data = await blogPost.find({...filter, ...search}).sort(sort)
+        const data = await blogPost.find({...filter, ...search}).sort(sort).limit(limit)
 
         res.status(200).send({
             error: false,
