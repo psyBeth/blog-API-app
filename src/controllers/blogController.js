@@ -80,9 +80,14 @@ module.exports.blogPost = {
 
         //* PAGINATION:
         // URL?page=3&limit=10
+        // LIMIT
         let limit = Number(req.query?.limit);
         limit = limit > 0 ? limit : Number(process.env.PAGE_SIZE)
-        console.log(limit);
+        // console.log(typeof limit, limit);
+        // PAGE
+        let page = Number(req.query?.page);
+        page = page > 0 ? page : 1
+        console.log(page);
        
 
         //? FILTERING & SEARCHING & SORTING & PAGINATION */
