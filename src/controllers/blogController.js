@@ -104,7 +104,7 @@ module.exports.blogPost = {
         // const data = await blogPost.find(filter)
         // const data = await blogPost.find({...filter, ...search}).sort(sort).skip(10).limit(limit).populate('blogCategoryId')
 
-        const data = await res.getModelList(blogPost)
+        const data = await res.getModelList(blogPost, 'blogCategoryId')
 
         res.status(200).send({
             error: false,
