@@ -55,30 +55,30 @@ module.exports.blogPost = {
 
     list: async (req, res) => {
 
-        //* FILTERING & SEARCHING & SORTING & PAGINATION */
+        //? FILTERING & SEARCHING & SORTING & PAGINATION */
 
-        //? FILTERING:
+        //* FILTERING:
         // URL?filter[key1]=value1&filter[key2]=value2
         const filter = req.query?.filter || {}
         // console.log(filter);
 
-        //?SEARCHING:
+        //*SEARCHING:
         // URL?search[key1]=value1&search[key2]=value2
         // https://www.mongodb.com/docs/manual/reference/operator/query/regex/
         const search = req.query?.search || {}
         // console.log(search);
         // { title: 'test', content: 'test' } -> { title: { $regex: 'test' }, content: { $regex: 'test' } }
         for (let key in search) {
-            search[key] = { $regex: search[key] }
+            search[key] = { $regex: search[key], $options: 'i' }  //insentive
         }
 
-        //? SORTING
+        //* SORTING
         // URL?sort[key1]=asc&sort[key2]=desc
         // asc: A-Z - desc: Z-A
         const sort = req.query?.sort || {}
-        console.log(sort);
+        // console.log(sort);
 
-        //* FILTERING & SEARCHING & SORTING & PAGINATION */
+        //? FILTERING & SEARCHING & SORTING & PAGINATION */
 
         // const data = await blogPost.find({ published: true })
         // const data = await blogPost.find(filter)
