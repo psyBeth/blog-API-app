@@ -24,7 +24,11 @@ app.use(session({
 }));
 /* ------------------------------------------------------- */
 
-app.use(require('./src/middlewares/userControl'))
+// Check logined user
+app.use(require('./src/middlewares/userControl'));
+
+//Filter, Search, Sort, Pagination
+app.use(require('./src/middlewares/findSearchSortPage'))
 
 /* ------------------------------------------------------- */
 

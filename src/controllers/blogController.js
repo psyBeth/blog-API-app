@@ -10,9 +10,11 @@ const {blogPost, blogCategory} = require('../models/blogModel')
 
 module.exports.blogCategory = {
     list: async(req, res) => {
-        const data = await blogCategory.find()
+        // const data = await blogCategory.find()
+        const data = await res.getModelList(blogCategory)
         res.status(200).send({
             error: false,
+            details: await res.getModelListDetails(blogCategory),
             data: data,
         })
     },
@@ -55,55 +57,58 @@ module.exports.blogPost = {
 
     list: async (req, res) => {
 
-        //? FILTERING & SEARCHING & SORTING & PAGINATION */
+    //    //? FILTERING & SEARCHING & SORTING & PAGINATION */
 
-        //* FILTERING:
-        // URL?filter[key1]=value1&filter[key2]=value2
-        const filter = req.query?.filter || {}
-        // console.log(filter);
+    //     //* FILTERING:
+    //     // URL?filter[key1]=value1&filter[key2]=value2
+    //     const filter = req.query?.filter || {}
+    //     // console.log(filter);
 
-        //*SEARCHING:
-        // URL?search[key1]=value1&search[key2]=value2
-        // https://www.mongodb.com/docs/manual/reference/operator/query/regex/
-        const search = req.query?.search || {}
-        // console.log(search);
-        // { title: 'test', content: 'test' } -> { title: { $regex: 'test' }, content: { $regex: 'test' } }
-        for (let key in search) {
-            search[key] = { $regex: search[key], $options: 'i' }  //insensitive
-        }
+    //     //*SEARCHING:
+    //     // URL?search[key1]=value1&search[key2]=value2
+    //     // https://www.mongodb.com/docs/manual/reference/operator/query/regex/
+    //     const search = req.query?.search || {}
+    //     // console.log(search);
+    //     // { title: 'test', content: 'test' } -> { title: { $regex: 'test' }, content: { $regex: 'test' } }
+    //     for (let key in search) {
+    //         search[key] = { $regex: search[key], $options: 'i' }  //insensitive
+    //     }
 
-        //* SORTING:
-        // URL?sort[key1]=asc&sort[key2]=desc
-        // asc: A-Z - desc: Z-A
-        const sort = req.query?.sort || {}
-        // console.log(sort);
+    //     //* SORTING:
+    //     // URL?sort[key1]=asc&sort[key2]=desc
+    //     // asc: A-Z - desc: Z-A
+    //     const sort = req.query?.sort || {}
+    //     // console.log(sort);
 
-        //* PAGINATION:
-        // URL?page=3&limit=10
-        // LIMIT
-        let limit = Number(req.query?.limit);
-        limit = limit > 0 ? limit : Number(process.env.PAGE_SIZE)
-        console.log('limit', limit);
-        // PAGE
-        let page = Number(req.query?.page);
-        // page = page > 0 ? page : 1
-        page = page > 0 ? (page - 1) : 1 
-        // page num is always page -1 in backend
-        console.log('page', page);
+    //     //* PAGINATION:
+    //     // URL?page=3&limit=10
+    //     // LIMIT
+    //     let limit = Number(req.query?.limit);
+    //     limit = limit > 0 ? limit : Number(process.env.PAGE_SIZE)
+    //     console.log('limit', limit);
+    //     // PAGE
+    //     let page = Number(req.query?.page);
+    //     // page = page > 0 ? page : 1
+    //     page = page > 0 ? (page - 1) : 1 
+    //     // page num is always page -1 in backend
+    //     console.log('page', page);
 
-        // SKIP: 
-        let skip = Number(req.query?.skip);
-        skip = skip > 0 ? skip : ( page * limit )
-        console.log('skip', skip);
+    //     // SKIP: 
+    //     let skip = Number(req.query?.skip);
+    //     skip = skip > 0 ? skip : ( page * limit )
+    //     console.log('skip', skip);
 
-        //? FILTERING & SEARCHING & SORTING & PAGINATION */
+    //     //? FILTERING & SEARCHING & SORTING & PAGINATION */
 
         // const data = await blogPost.find({ published: true })
         // const data = await blogPost.find(filter)
-        const data = await blogPost.find({...filter, ...search}).sort(sort).skip(10).limit(limit)
+        // const data = await blogPost.find({...filter, ...search}).sort(sort).skip(10).limit(limit).populate('blogCategoryId')
+
+        const data = await res.getModelList(blogPost)
 
         res.status(200).send({
             error: false,
+            details: await res.getModelListDetails(blogCategory),
             data: data
         })
 
